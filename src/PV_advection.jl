@@ -85,7 +85,7 @@ end
 
 """ Linear combination α of potential voriticity q according
 to the energy and enstrophy conserving scheme of Arakawa and Hsu, 1990"""
-function AHα!(α::Array{T,2},q::Array{T,2}) where {T<:AbstractFloat}
+function AHα!(α::Array{T,2},q::Array{T,2}) where {T<:Real}
     m,n = size(α)
     @boundscheck (m+1,n+1) == size(q) || throw(BoundsError())
 
@@ -100,7 +100,7 @@ end
 
 """ Linear combination δ of potential voriticity q according
 to the energy and enstrophy conserving scheme of Arakawa and Hsu, 1990 """
-function AHβ!(β::Array{T,2},q::Array{T,2}) where {T<:AbstractFloat}
+function AHβ!(β::Array{T,2},q::Array{T,2}) where {T<:Real}
     m,n = size(β)
     @boundscheck (m,n+1) == size(q) || throw(BoundsError())
 
@@ -116,7 +116,7 @@ end
 
 """ Linear combination γ of potential voriticity q according
 to the energy and enstrophy conserving scheme of Arakawa and Hsu, 1990 """
-function AHγ!(γ::Array{T,2},q::Array{T,2}) where {T<:AbstractFloat}
+function AHγ!(γ::Array{T,2},q::Array{T,2}) where {T<:Real}
     m,n = size(γ)
     @boundscheck (m,n+1) == size(q) || throw(BoundsError())
 
@@ -132,7 +132,7 @@ end
 
 """ Linear combination β of potential voriticity q according
 to the energy and enstrophy conserving scheme of Arakawa and Hsu, 1990 """
-function AHδ!(δ::Array{T,2},q::Array{T,2}) where {T<:AbstractFloat}
+function AHδ!(δ::Array{T,2},q::Array{T,2}) where {T<:Real}
     m,n = size(δ)
     @boundscheck (m+1,n+1) == size(q) || throw(BoundsError())
 

@@ -1,4 +1,4 @@
-struct ModelSetup{T<:AbstractFloat,Tprog<:AbstractFloat}
+struct ModelSetup{T<:Real,Tprog<:Real}
     parameters::Parameter
     grid::Grid{T,Tprog}
     constants::Constants{T,Tprog}

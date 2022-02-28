@@ -1,5 +1,5 @@
 """Runge Kutta time stepping scheme diagnostic cariables collected in a struct."""
-@with_kw struct RungeKuttaVars{T<:AbstractFloat}
+@with_kw struct RungeKuttaVars{T<:Real}
 
     # to be specified
     nx::Int
@@ -27,7 +27,7 @@
 end
 
 """Generator function for RungeKutta VarCollection."""
-function RungeKuttaVars{T}(G::Grid) where {T<:AbstractFloat}
+function RungeKuttaVars{T}(G::Grid) where {T<:Real}
 
     @unpack nx,ny,bc = G
     @unpack halo,haloη = G
@@ -38,7 +38,7 @@ end
 ###################################################
 
 """Tendencies collected in a struct."""
-@with_kw struct TendencyVars{T<:AbstractFloat}
+@with_kw struct TendencyVars{T<:Real}
 
     # to be specified
     nx::Int
@@ -73,7 +73,7 @@ end
 end
 
 """Generator function for Tendencies VarCollection."""
-function TendencyVars{T}(G::Grid) where {T<:AbstractFloat}
+function TendencyVars{T}(G::Grid) where {T<:Real}
 
     @unpack nx,ny,bc = G
     @unpack halo,haloη = G
@@ -84,7 +84,7 @@ end
 ###########################################################
 
 """VolumeFluxes collected in a struct."""
-@with_kw struct VolumeFluxVars{T<:AbstractFloat}
+@with_kw struct VolumeFluxVars{T<:Real}
 
     # to be specified
     nx::Int
@@ -115,7 +115,7 @@ end
 end
 
 """Generator function for VolumeFluxes VarCollection."""
-function VolumeFluxVars{T}(G::Grid) where {T<:AbstractFloat}
+function VolumeFluxVars{T}(G::Grid) where {T<:Real}
 
     @unpack nx,ny,bc = G
     @unpack halo,haloη = G
@@ -126,7 +126,7 @@ end
 ###############################################################
 
 """Vorticity variables collected in a struct."""
-@with_kw struct VorticityVars{T<:AbstractFloat}
+@with_kw struct VorticityVars{T<:Real}
 
     # to be specified
     nx::Int
@@ -168,7 +168,7 @@ end
 end
 
 """Generator function for Vorticity VarCollection."""
-function VorticityVars{T}(G::Grid) where {T<:AbstractFloat}
+function VorticityVars{T}(G::Grid) where {T<:Real}
 
     @unpack nx,ny,bc = G
     @unpack halo,haloη = G
@@ -179,7 +179,7 @@ end
 ####################################################################
 
 """Bernoulli variables collected in a struct."""
-@with_kw struct BernoulliVars{T<:AbstractFloat}
+@with_kw struct BernoulliVars{T<:Real}
 
     # to be specified
     nx::Int
@@ -210,7 +210,7 @@ end
 end
 
 """Generator function for Bernoulli VarCollection."""
-function BernoulliVars{T}(G::Grid) where {T<:AbstractFloat}
+function BernoulliVars{T}(G::Grid) where {T<:Real}
 
     @unpack nx,ny,bc = G
     @unpack halo,haloη = G
@@ -221,7 +221,7 @@ end
 ####################################################################
 
 """Bottomdrag variables collected in a struct."""
-@with_kw struct BottomdragVars{T<:AbstractFloat}
+@with_kw struct BottomdragVars{T<:Real}
 
     # to be specified
     nx::Int
@@ -249,7 +249,7 @@ end
 end
 
 """Generator function for Bottomdrag VarCollection."""
-function BottomdragVars{T}(G::Grid) where {T<:AbstractFloat}
+function BottomdragVars{T}(G::Grid) where {T<:Real}
 
     @unpack nx,ny,bc = G
     @unpack halo,haloη = G
@@ -260,7 +260,7 @@ end
 ####################################################################
 
 """ArakawaHsu variables collected in a struct."""
-@with_kw struct ArakawaHsuVars{T<:AbstractFloat}
+@with_kw struct ArakawaHsuVars{T<:Real}
 
     # to be specified
     nx::Int
@@ -287,7 +287,7 @@ end
 end
 
 """Generator function for ArakawaHsu VarCollection."""
-function ArakawaHsuVars{T}(G::Grid) where {T<:AbstractFloat}
+function ArakawaHsuVars{T}(G::Grid) where {T<:Real}
 
     @unpack nx,ny,bc = G
     @unpack halo,haloη = G
@@ -298,7 +298,7 @@ end
 ####################################################################
 
 """Laplace variables collected in a struct."""
-@with_kw struct LaplaceVars{T<:AbstractFloat}
+@with_kw struct LaplaceVars{T<:Real}
 
     # to be specified
     nx::Int
@@ -328,7 +328,7 @@ end
 end
 
 """Generator function for Laplace VarCollection."""
-function LaplaceVars{T}(G::Grid) where {T<:AbstractFloat}
+function LaplaceVars{T}(G::Grid) where {T<:Real}
 
     @unpack nx,ny,bc = G
     @unpack halo,haloη = G
@@ -339,7 +339,7 @@ end
 ####################################################################
 
 """Smagorinsky variables collected in a struct."""
-@with_kw struct SmagorinskyVars{T<:AbstractFloat}
+@with_kw struct SmagorinskyVars{T<:Real}
 
     # to be specified
     nx::Int
@@ -384,7 +384,7 @@ end
 end
 
 """Generator function for Smagorinsky VarCollection."""
-function SmagorinskyVars{T}(G::Grid) where {T<:AbstractFloat}
+function SmagorinskyVars{T}(G::Grid) where {T<:Real}
 
     @unpack nx,ny,bc = G
     @unpack halo,haloη = G
@@ -395,7 +395,7 @@ end
 ####################################################################
 
 """SemiLagrange variables collected in a struct."""
-@with_kw struct SemiLagrangeVars{T<:AbstractFloat}
+@with_kw struct SemiLagrangeVars{T<:Real}
 
     # to be specified
     nx::Int
@@ -438,7 +438,7 @@ end
 end
 
 """Generator function for SemiLagrange VarCollection."""
-function SemiLagrangeVars{T}(G::Grid) where {T<:AbstractFloat}
+function SemiLagrangeVars{T}(G::Grid) where {T<:Real}
 
     @unpack nx,ny,bc = G
     @unpack halo,haloη = G
@@ -467,7 +467,7 @@ end
 """Preallocate the diagnostic variables and return them as matrices in structs."""
 function preallocate(   ::Type{T},
                         ::Type{Tprog},
-                        G::Grid) where {T<:AbstractFloat,Tprog<:AbstractFloat}
+                        G::Grid) where {T<:Real,Tprog<:Real}
 
     RK = RungeKuttaVars{Tprog}(G)
     TD = TendencyVars{Tprog}(G)

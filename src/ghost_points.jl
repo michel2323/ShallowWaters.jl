@@ -3,7 +3,7 @@ function add_halo(  u::Array{T,2},
                     v::Array{T,2},
                     η::Array{T,2},
                     sst::Array{T,2},
-                    S::ModelSetup) where {T<:AbstractFloat}
+                    S::ModelSetup) where {T<:Real}
 
     @unpack nx,ny,nux,nuy,nvx,nvy = S.grid
     @unpack halo,haloη,halosstx,halossty = S.grid
@@ -37,7 +37,7 @@ function remove_halo(   u::Array{T,2},
                         v::Array{T,2},
                         η::Array{T,2},
                         sst::Array{T,2},
-                        S::ModelSetup) where {T<:AbstractFloat}
+                        S::ModelSetup) where {T<:Real}
 
     @unpack halo,haloη,halosstx,halossty = S.grid
     @unpack scale_inv,scale_sst = S.constants

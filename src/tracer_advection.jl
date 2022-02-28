@@ -93,7 +93,7 @@ The indices i,j of rd determine the arrival grid point."""
 function backtraj!( rd::Array{T,2},
                     dt::T,
                     uv::Array{T,2},
-                    ep::Int) where {T<:AbstractFloat}
+                    ep::Int) where {T<:Real}
     m,n = size(rd)
 
     if (m,n) == size(uv)            # update departue point case, matrices have same size
@@ -205,7 +205,7 @@ end
 """Clips the relative lower-left corner index xyi (for both x or y indices) to remain within the domain.
 ij is the index of the underlying matrix. xy is the actual coordinate, mn (m or n) the size of the domain,
 and h1,h2 are the halo sizes (left/south and right/north)."""
-function clip(xyi::Int,ij::Int,xy::T,mn::Int,h1::Int,h2::Int) where {T<:AbstractFloat}
+function clip(xyi::Int,ij::Int,xy::T,mn::Int,h1::Int,h2::Int) where {T<:Real}
 
     xyis = xyi+ij+h1                # shifted index (i.e. revert the relative index to an absolute)
 
@@ -221,7 +221,7 @@ end
 """Clips the relative lower-left corner index xyi (for both x or y indices) to remain within the domain.
 ij is the index of the underlying matrix. xy is the actual coordinate, mn (m or n) the size of the domain,
 and h is the halo size."""
-function wrap(xyi::Int,ij::Int,xy::T,mn::Int,h1::Int,h2::Int) where {T<:AbstractFloat}
+function wrap(xyi::Int,ij::Int,xy::T,mn::Int,h1::Int,h2::Int) where {T<:Real}
 
     xyis = xyi+ij+h1                # shifted index (i.e. revert the relative index to an absolute)
     xy0 = xy-T(xyi)                 # relative coordinate ∈ [0,1]
@@ -237,7 +237,7 @@ end
 
 """Bilinear interpolation on (x,y) in the unit square [0,1]x[0,1].
 The values at the corners are f00 = f(0,0), f01 = f(0,1), etc."""
-function bilin(f00::T,f10::T,f01::T,f11::T,x::T,y::T) where {T<:AbstractFloat}
+function bilin(f00::T,f10::T,f01::T,f11::T,x::T,y::T) where {T<:Real}
     # old version (more computations and larger rounding error)
     # oone = one(T)
     # return f00*(oone-x)*(oone-y) + f10*x*(oone-y) + f01*(oone-x)*y + f11*x*y

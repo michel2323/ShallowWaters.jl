@@ -3,7 +3,7 @@
 
 Struct containing the prognostic variables u,v,η and sst.
 """
-struct PrognosticVars{T<:AbstractFloat}
+struct PrognosticVars{T<:Real}
     u::Array{T,2}           # u-velocity
     v::Array{T,2}           # v-velocity
     η::Array{T,2}           # sea surface height / interface displacement
@@ -11,7 +11,7 @@ struct PrognosticVars{T<:AbstractFloat}
 end
 
 """Zero generator function for Grid G as argument."""
-function PrognosticVars{T}(G::Grid) where {T<:AbstractFloat}
+function PrognosticVars{T}(G::Grid) where {T<:Real}
     @unpack nux,nuy,nvx,nvy,nx,ny = G
     @unpack halo,haloη,halosstx,halossty = G
 
@@ -23,7 +23,7 @@ function PrognosticVars{T}(G::Grid) where {T<:AbstractFloat}
     return PrognosticVars{T}(u,v,η,sst)
 end
 
-function initial_conditions(::Type{T},S::ModelSetup) where {T<:AbstractFloat}
+function initial_conditions(::Type{T},S::ModelSetup) where {T<:Real}
 
     ## PROGNOSTIC VARIABLES U,V,η
     @unpack nux,nuy,nvx,nvy,nx,ny = S.grid
@@ -159,6 +159,7 @@ function initial_conditions(::Type{T},S::ModelSetup) where {T<:AbstractFloat}
     η = T.(Tini.(η))
 
     #TODO SST INTERPOLATION
+    sst = convert(typeof(u), sst)
     u,v,η,sst = add_halo(u,v,η,sst,S)
 
     return PrognosticVars{T}(u,v,η,sst)

@@ -1,4 +1,4 @@
-@with_kw struct Grid{T<:AbstractFloat,Tprog<:AbstractFloat}
+@with_kw struct Grid{T<:Real,Tprog<:Real}
 
     # Parameters taken from Parameter struct
     nx::Int                             # number of grid cells in x-direction
@@ -113,7 +113,7 @@ end
 
 
 """Generator function for the Grid struct."""
-function Grid{T,Tprog}(P::Parameter) where {T<:AbstractFloat,Tprog<:AbstractFloat}
+function Grid{T,Tprog}(P::Parameter) where {T<:Real,Tprog<:Real}
     @unpack nx,Lx,L_ratio = P
     @unpack bc,g,H,cfl = P
     @unpack Ndays,nstep_diff,nstep_advcor = P

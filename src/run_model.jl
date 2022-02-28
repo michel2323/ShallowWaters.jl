@@ -11,7 +11,7 @@ julia> u,v,η,sst = run_model(Float64,nx=200,output=true)
 """
 function run_model(::Type{T}=Float32;     # number format
     kwargs...                            # all additional parameters
-    ) where {T<:AbstractFloat}
+    ) where {T<:Real}
 
     P = Parameter(T=T;kwargs...)
     return run_model(T,P)
@@ -22,7 +22,7 @@ function run_model(P::Parameter)
     return run_model(T,P)
 end
 
-function run_model(::Type{T},P::Parameter) where {T<:AbstractFloat}
+function run_model(::Type{T},P::Parameter) where {T<:Real}
 
     @unpack Tprog = P
 

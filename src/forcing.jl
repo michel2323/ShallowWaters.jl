@@ -1,4 +1,4 @@
-struct Forcing{T<:AbstractFloat}
+struct Forcing{T<:Real}
     Fx::Array{T,2}
     Fy::Array{T,2}
     H::Array{T,2}
@@ -8,7 +8,7 @@ struct Forcing{T<:AbstractFloat}
     #sst_γ::Array{T,2}
 end
 
-function Forcing{T}(P::Parameter,G::Grid) where {T<:AbstractFloat}
+function Forcing{T}(P::Parameter,G::Grid) where {T<:Real}
 
     @unpack wind_forcing_x,wind_forcing_y,topography = P
 
@@ -54,7 +54,7 @@ end
 
 """Returns the constant forcing matrices Fx,Fy that vary only meriodionally/zonally
 as a cosine with strongest forcing in the middle and vanishing forcing at boundaries."""
-function ChannelWind(::Type{T},P::Parameter,G::Grid) where {T<:AbstractFloat}
+function ChannelWind(::Type{T},P::Parameter,G::Grid) where {T<:Real}
 
     @unpack Δ,x_u,y_u,Lx,Ly = G
     @unpack Fx0,Fy0,H,ρ,scale = P
@@ -69,7 +69,7 @@ end
 
 """Returns the constant forcing matrices Fx,Fy that vary only meriodionally/zonally
 as a hyperbolic tangent with strongest shear in the middle."""
-function ShearWind(::Type{T},P::Parameter,G::Grid) where {T<:AbstractFloat}
+function ShearWind(::Type{T},P::Parameter,G::Grid) where {T<:Real}
 
     @unpack Δ,x_u,y_u,Lx,Ly = G
     @unpack Fx0,Fy0,H,ρ,scale = P
@@ -85,7 +85,7 @@ end
 """Returns the constant forcing matrices Fx,Fy that vary only meriodionally/zonally
 with a superposition of sin & cos for a double gyre circulation.
 See Cooper&Zanna 2015 or Kloewer et al 2018."""
-function DoubleGyreWind(::Type{T},P::Parameter,G::Grid) where {T<:AbstractFloat}
+function DoubleGyreWind(::Type{T},P::Parameter,G::Grid) where {T<:Real}
 
     @unpack Δ,x_u,y_u,Lx,Ly = G
     @unpack Fx0,Fy0,H,ρ,scale = P
@@ -98,7 +98,7 @@ function DoubleGyreWind(::Type{T},P::Parameter,G::Grid) where {T<:AbstractFloat}
 end
 
 """Returns constant in in space forcing matrices Fx,Fy."""
-function ConstantWind(::Type{T},P::Parameter,G::Grid) where {T<:AbstractFloat}
+function ConstantWind(::Type{T},P::Parameter,G::Grid) where {T<:Real}
 
     @unpack Δ,nux,nuy,nvx,nvy = G
     @unpack Fx0,Fy0,H,ρ,scale = P
@@ -111,7 +111,7 @@ function ConstantWind(::Type{T},P::Parameter,G::Grid) where {T<:AbstractFloat}
 end
 
 """Returns constant in in space forcing matrices Fx,Fy."""
-function NoWind(::Type{T},P::Parameter,G::Grid) where {T<:AbstractFloat}
+function NoWind(::Type{T},P::Parameter,G::Grid) where {T<:Real}
 
     @unpack nux,nuy,nvx,nvy = G
 
@@ -124,7 +124,7 @@ end
 
 """Returns a reference state for Newtonian cooling/surface relaxation shaped as a
 hyperbolic tangent to force the continuity equation."""
-function InterfaceRelaxation(::Type{T},P::Parameter,G::Grid) where {T<:AbstractFloat}
+function InterfaceRelaxation(::Type{T},P::Parameter,G::Grid) where {T<:Real}
 
     @unpack x_T,y_T,Ly,Lx = G
     @unpack η_refh,η_refw = P
@@ -138,7 +138,7 @@ end
 """Returns a matrix of water depth for the whole domain that contains a
 Gaussian seamount in the middle. Water depth, heigth and width of the
 seamount are adjusted with the constants H, topofeat_height and topofeat_width."""
-function Seamount(::Type{T},P::Parameter,G::Grid) where {T<:AbstractFloat}
+function Seamount(::Type{T},P::Parameter,G::Grid) where {T<:Real}
 
     @unpack x_T_halo,y_T_halo,Lx,Ly = G
     @unpack topo_width,topo_height,H = P
@@ -153,7 +153,7 @@ end
 """Returns a matrix of water depth for the whole domain that contains a
 meridional Gaussian ridge in the middle. Water depth, heigth and width of the
 ridge are adjusted with the constants water_depth, topofeat_height and topofeat_width."""
-function Ridge(::Type{T},P::Parameter,G::Grid) where {T<:AbstractFloat}
+function Ridge(::Type{T},P::Parameter,G::Grid) where {T<:Real}
 
     @unpack x_T_halo,y_T_halo,Lx,Ly = G
     @unpack topo_width,topo_height,H = P
@@ -168,7 +168,7 @@ function Ridge(::Type{T},P::Parameter,G::Grid) where {T<:AbstractFloat}
 end
 
 """Same as Ridge() but for n ridges at various x positions."""
-function Ridges(::Type{T},P::Parameter,G::Grid) where {T<:AbstractFloat}
+function Ridges(::Type{T},P::Parameter,G::Grid) where {T<:Real}
 
     @unpack x_T_halo,y_T_halo,Lx,Ly = G
     @unpack topo_width,topo_height,H = P
@@ -188,14 +188,14 @@ function Ridges(::Type{T},P::Parameter,G::Grid) where {T<:AbstractFloat}
 end
 
 """Returns a matrix of constant water depth H."""
-function FlatBottom(::Type{T},P::Parameter,G::Grid) where {T<:AbstractFloat}
+function FlatBottom(::Type{T},P::Parameter,G::Grid) where {T<:Real}
     @unpack nx,ny,haloη = G
     @unpack H = P
     return fill(T(H),(nx+2*haloη,ny+2*haloη))
 end
 
 """Returns Kelvin wave pumping forcing of the continuity equation."""
-function KelvinPump(::Type{T},P::Parameter,G::Grid) where {T<:AbstractFloat}
+function KelvinPump(::Type{T},P::Parameter,G::Grid) where {T<:Real}
 
     @unpack x_T,y_T,Lx,Ly = G
     @unpack R,ϕ,Δ = G
@@ -212,6 +212,6 @@ function KelvinPump(::Type{T},P::Parameter,G::Grid) where {T<:AbstractFloat}
 end
 
 """Time evolution of forcing."""
-function Ftime(::Type{T},t::Int,ω::Real) where {T<:AbstractFloat}
+function Ftime(::Type{T},t::Int,ω::Real) where {T<:Real}
     return convert(T,sin(ω*t))
 end

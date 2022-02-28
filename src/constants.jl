@@ -1,7 +1,7 @@
 """Coefficients for strong stability-preserving Runge-Kutta 3rd order.
 From: KETCHESON, LOĆZI, AND PARSANI, 2014. INTERNAL ERROR PROPAGATION IN EXPLICIT RUNGE–KUTTA METHODS, 
 SIAM J NUMER ANAL 52/5. DOI:10.1137/130936245"""
-struct SSPRK3coeff{T<:AbstractFloat}
+struct SSPRK3coeff{T<:Real}
     n::Int
     s::Int
     kn::Int
@@ -26,7 +26,7 @@ function SSPRK3coeff{T}(P::Parameter,Δt_Δ::T) where T
     return SSPRK3coeff{T}(n,s,kn,mn,Δt_Δn,kna,knb,Δt_Δnc)
 end
 
-struct Constants{T<:AbstractFloat,Tprog<:AbstractFloat}
+struct Constants{T<:Real,Tprog<:Real}
 
     # RUNGE-KUTTA COEFFICIENTS 2nd/3rd/4th order including timestep Δt
     RKaΔt::Array{Tprog,1}
@@ -59,7 +59,7 @@ struct Constants{T<:AbstractFloat,Tprog<:AbstractFloat}
 end
 
 """Generator function for the mutable struct Constants."""
-function Constants{T,Tprog}(P::Parameter,G::Grid) where {T<:AbstractFloat,Tprog<:AbstractFloat}
+function Constants{T,Tprog}(P::Parameter,G::Grid) where {T<:Real,Tprog<:Real}
 
     # Runge-Kutta 2nd/3rd/4th order coefficients including time step Δt and grid spacing Δ
     # a are the coefficents to sum the rhs on the fly, such that sum=1

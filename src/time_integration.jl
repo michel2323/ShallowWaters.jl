@@ -1,7 +1,7 @@
 """Integrates ShallowWaters forward in time."""
 function time_integration(  Prog::PrognosticVars{Tprog},
                             Diag::DiagnosticVars{T,Tprog},
-                            S::ModelSetup{T,Tprog}) where {T<:AbstractFloat,Tprog<:AbstractFloat}
+                            S::ModelSetup{T,Tprog}) where {T<:Real,Tprog<:Real}
 
     @unpack u,v,η,sst = Prog
     @unpack u0,v0,η0 = Diag.RungeKutta
@@ -300,7 +300,7 @@ function time_integration(  Prog::PrognosticVars{Tprog},
 end
 
 """Add to a x multiplied with b. a += x*b """
-function axb!(a::Matrix{T},x::Real,b::Matrix{T}) where {T<:AbstractFloat}
+function axb!(a::Matrix{T},x::Real,b::Matrix{T}) where {T<:Real}
     m,n = size(a)
     @boundscheck (m,n) == size(b) || throw(BoundsError())
 
@@ -314,7 +314,7 @@ function axb!(a::Matrix{T},x::Real,b::Matrix{T}) where {T<:AbstractFloat}
 end
 
 """c equals add a to x multiplied with b. c = a + x*b """
-function caxb!(c::Array{T,2},a::Array{T,2},x::T,b::Array{T,2}) where {T<:AbstractFloat}
+function caxb!(c::Array{T,2},a::Array{T,2},x::T,b::Array{T,2}) where {T<:Real}
     m,n = size(a)
     @boundscheck (m,n) == size(b) || throw(BoundsError())
     @boundscheck (m,n) == size(c) || throw(BoundsError())
@@ -327,7 +327,7 @@ function caxb!(c::Array{T,2},a::Array{T,2},x::T,b::Array{T,2}) where {T<:Abstrac
 end
 
 """d equals add a minus b minus c. c = (a - b) - c."""
-function dambmc!(d::Matrix{T},a::Matrix{T},b::Matrix{T},c::Matrix{T}) where {T<:AbstractFloat}
+function dambmc!(d::Matrix{T},a::Matrix{T},b::Matrix{T},c::Matrix{T}) where {T<:Real}
     m,n = size(a)
     @boundscheck (m,n) == size(b) || throw(BoundsError())
     @boundscheck (m,n) == size(c) || throw(BoundsError())
@@ -341,7 +341,7 @@ function dambmc!(d::Matrix{T},a::Matrix{T},b::Matrix{T},c::Matrix{T}) where {T<:
 end
 
 """c equals add x multiplied to a plus b. c = x*(a+b) """
-function cxab!(c::Array{T,2},x::Real,a::Array{T,2},b::Array{T,2}) where {T<:AbstractFloat}
+function cxab!(c::Array{T,2},x::Real,a::Array{T,2},b::Array{T,2}) where {T<:Real}
     m,n = size(a)
     @boundscheck (m,n) == size(b) || throw(BoundsError())
     @boundscheck (m,n) == size(c) || throw(BoundsError())
@@ -356,7 +356,7 @@ function cxab!(c::Array{T,2},x::Real,a::Array{T,2},b::Array{T,2}) where {T<:Abst
 end
 
 """c = x*a + y*b"""
-function cxayb!(c::Array{T,2},x::Real,a::Array{T,2},y::Real,b::Array{T,2}) where {T<:AbstractFloat}
+function cxayb!(c::Array{T,2},x::Real,a::Array{T,2},y::Real,b::Array{T,2}) where {T<:Real}
     m,n = size(a)
     @boundscheck (m,n) == size(b) || throw(BoundsError())
     @boundscheck (m,n) == size(c) || throw(BoundsError())
@@ -375,7 +375,7 @@ end
 function dxaybzc!(  d::Array{T,2},
                     x::Real,a::Array{T,2},
                     y::Real,b::Array{T,2},
-                    z::Real,c::Array{T,2}) where {T<:AbstractFloat}
+                    z::Real,c::Array{T,2}) where {T<:Real}
     m,n = size(a)
     @boundscheck (m,n) == size(b) || throw(BoundsError())
     @boundscheck (m,n) == size(c) || throw(BoundsError())

@@ -167,7 +167,7 @@ function bernoulli!(p::Array{T,2},
                     η::Array{T,2},
                     g::T,
                     ep::Int,
-                    scale_inv::T) where {T<:AbstractFloat}
+                    scale_inv::T) where {T<:Real}
 
     m,n = size(p)
     @boundscheck (m+ep,n+2) == size(KEu) || throw(BoundsError())
@@ -282,7 +282,7 @@ function Uflux!(U::AbstractMatrix{T},
                 u::AbstractMatrix{T},
                 h_u::AbstractMatrix{T},
                 ep::Int,
-                scale_inv::T) where {T<:AbstractFloat}
+                scale_inv::T) where {T<:Real}
 
     m,n = size(U)
     @boundscheck (m,n) == size(h_u) || throw(BoundsError())
@@ -299,7 +299,7 @@ end
 function Vflux!(V::AbstractMatrix{T},
                 v::AbstractMatrix{T},
                 h_v::AbstractMatrix{T},
-                scale_inv::T) where {T<:AbstractFloat}
+                scale_inv::T) where {T<:Real}
 
     m,n = size(V)
     @boundscheck (m,n) == size(h_v) || throw(BoundsError())
